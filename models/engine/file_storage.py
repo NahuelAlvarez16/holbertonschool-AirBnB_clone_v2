@@ -11,7 +11,10 @@ class FileStorage:
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
         if cls is not None:
-            return list(filter(lambda obj: FileStorage.__objects.index(obj).split('.')[0] == cls.__name__, FileStorage.__objects))
+            dict = {}
+            for obj in FileStorage.__objects:
+                if obj.split('.')[0] == cls.__name__:
+                    dict[obj] = FileStorage.__objects[obj]
 
         return FileStorage.__objects
 
@@ -57,5 +60,5 @@ class FileStorage:
         It deletes an object from the dictionary __objects
         """
         if obj is not None:
-            self.__objects.pop(obj)
+            del self.__objects[obj]
             self.save()
