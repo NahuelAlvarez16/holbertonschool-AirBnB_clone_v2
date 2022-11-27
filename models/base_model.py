@@ -30,7 +30,7 @@ class BaseModel:
                 elif key == 'updated_at':
                     self.updated_at = datetime.strptime(value,
                                                         "%Y-%m-%dT%H:%M:%S.%f")
-                else:
+                elif key != '__class__':
                     setattr(self, key, value)
 
     def __str__(self):
