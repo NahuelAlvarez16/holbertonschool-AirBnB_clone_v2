@@ -3,7 +3,6 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, ForeignKey, String
 from sqlalchemy.orm import relationship
-from models import storage
 from models.city import City
 
 
@@ -20,6 +19,8 @@ class State(BaseModel, Base):
         City objects that have a state_id attribute equal to the id attribute of the
         current State object.
         """
+        from models import storage
+
         cities = []
         for city in storage.all(City):
             if self.id == city.state_id:
