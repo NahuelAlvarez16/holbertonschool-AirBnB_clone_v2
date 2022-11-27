@@ -61,5 +61,5 @@ class FileStorage:
         It deletes an object from the dictionary __objects
         """
         if obj is not None:
-            del self.__objects[f"{obj.__class__}.{obj.id}"]
+            del self.__objects[f"{obj.__class__.__name__}.{obj.id}"]
             self.save()
