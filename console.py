@@ -126,7 +126,6 @@ class HBNBCommand(cmd.Cmd):
             return
 
         new_instance = HBNBCommand.classes[params[0]]()
-        values = {}
 
         for param in params[1:]:
             param = param.split("=")
