@@ -15,6 +15,7 @@ class FileStorage:
             for obj in FileStorage.__objects:
                 if obj.split('.')[0] == cls.__name__:
                     dict[obj] = FileStorage.__objects[obj]
+            return dict
 
         return FileStorage.__objects
 
