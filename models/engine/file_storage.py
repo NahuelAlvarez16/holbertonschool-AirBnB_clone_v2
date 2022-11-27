@@ -53,6 +53,9 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
+        """
+        It deletes an object from the dictionary __objects
+        """
         if obj is not None:
             self.__objects.pop(obj)
             self.save()
