@@ -54,7 +54,7 @@ class DBStorage:
                 if c.__name__ != 'BaseModel':
                     response = self.__session.query(c).all()
                     for row in response:
-                        result[f"{c.__class__.__name__}.{row.id}"] = row
+                        result[f"{c.__class__.__name__}.{row.id}"] = row.to_dict()
         return result
 
     def new(self, obj):
