@@ -1,11 +1,15 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, ForeignKey, String, Integer, Float
+from sqlalchemy import Column, ForeignKey, String, Integer, Float, Table
 from sqlalchemy.orm import relationship
 
 from models.review import Review
 
+place_amenity = Table('place_amenity', Base.metadata,
+    Column('place_id', String(60), ForeignKey('places.id'), primary_key=True, nullable=False),
+    Column('amenity_id', String(60), ForeignKey('amenities.id'), primary_key=True, nullable=False)
+)
 
 class Place(BaseModel, Base):
     """ A place to stay """
@@ -20,8 +24,9 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, nullable=False, default=0)
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
-    amenity_ids = []
     reviews = relationship("Review", cascade="all,delete", backref="users")
+    amenities = relationship("Amenity", secondary='place_amenity', viewonly=False)
+    amenity_ids = []
 
     @property
     def reviews(self):
@@ -37,3 +42,24 @@ class Place(BaseModel, Base):
             if self.id == review.place_id:
                 reviews.append(reviews)
         return reviews
+
+    @property
+    def amenities(self):
+        """
+        It returns a list of all the amenities that are associated with the place.
+        """
+        from models.amenity import Amenity
+        from models.__init__ import storage
+
+        amenities = []
+        for amenity in storage.all(Amenity):
+            if amenity.id in self.amenity_ids:
+                amenities.append(amenity)
+        return amenities
+
+    @amenities.setter
+    def amenities(self, obj):
+        from models.amenity import Amenity
+
+        if type(obj) is Amenity:
+            self.amenity_ids.append(obj.id)
