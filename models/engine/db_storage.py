@@ -51,9 +51,10 @@ class DBStorage:
                 result[f"{cls}.{row.id}"] = row
         else:
             for c in HBNBCommand.classes.values():
-                response = self.__session.query(c).all()
-                for row in response:
-                    result[f"{c.__class__.__name__}.{row.id}"] = row
+                if c.__name__ != 'BaseModel':
+                    response = self.__session.query(c).all()
+                    for row in response:
+                        result[f"{c.__class__.__name__}.{row.id}"] = row
         return result
 
     def new(self, obj):
