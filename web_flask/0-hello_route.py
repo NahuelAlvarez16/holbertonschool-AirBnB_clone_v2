@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-# save this as app.py
+"""
+    Script that starts a Flask web application:
+"""
 from flask import Flask, request
 from markupsafe import escape
 
