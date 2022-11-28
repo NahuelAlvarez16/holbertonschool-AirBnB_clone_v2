@@ -2,6 +2,8 @@
 """
     Script that starts a Flask web application
 """
+
+
 from flask import Flask, request
 from markupsafe import escape
 
