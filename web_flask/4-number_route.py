@@ -28,7 +28,7 @@ def python(text="is cool"):
     return "Python {}".format(str(text).replace("_", " "))
 
 
-@app.route("/number/int:n", strict_slashes=False)
+@app.route("/number/<int:n>", strict_slashes=False)
 def python(n):
     return "{} is a number".format(n)
 
