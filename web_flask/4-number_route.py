@@ -29,7 +29,7 @@ def python(text="is cool"):
 
 
 @app.route("/number/<int:n>", strict_slashes=False)
-def python(n):
+def number(n):
     return "{} is a number".format(n)
 
 
